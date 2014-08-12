@@ -1,0 +1,3 @@
+[submodule "ftest/base"]
+	path = ftest/base
+	url = https://github.com/Orasi/python_selenium_framework.git
