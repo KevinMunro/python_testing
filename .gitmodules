@@ -1,3 +1,6 @@
 [submodule "selenium/base"]
+	path = selenium/base
+	url = https://github.com/Orasi/python_selenium_framework.git
+[submodule "selenium_test/base"]
 	path = selenium_test/base
 	url = https://github.com/Orasi/python_selenium_framework.git
