@@ -4,7 +4,7 @@ from selenium_test.base import *
 from selenium_test.pages import *
 import re
 
-git 
+git
 class test_Login(base_test.test):
     _multiprocess_can_split_ = True
 
@@ -35,7 +35,7 @@ class test_Login(base_test.test):
     def test_user_can_not_login(self):
         test_data = [
             {'username': 'John', 'password': '1234'},
-            {'username': '1234', 'password': '1234'},
+            {'username': '', 'password': '1234'},
             {'username': 'John.Smith', 'password': ''}
         ]
         for data in test_data:
