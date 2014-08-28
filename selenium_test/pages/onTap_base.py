@@ -1,12 +1,10 @@
-import sys
-sys.path.append('../../')
-import selenium_test.base.base_page as base
+from selenium_test.base import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait as wait
 
 
-class onTap(base.Page):
+class onTap(base_page.Page):
 
     red_alert_loc = "div.alert.alert-danger"
     red_alert_by = "css"
