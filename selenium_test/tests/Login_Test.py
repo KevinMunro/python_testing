@@ -4,11 +4,12 @@ from selenium_test.base import *
 from selenium_test.pages import *
 import re
 
-git
+
 class test_Login(base_test.test):
     _multiprocess_can_split_ = True
 
-    envs = ['ie', 'firefox', 'chrome', 'mobile chrome']
+    run_locally = True
+    envs = ['chrome', 'ie', 'firefox']
 
     def tearDown(self):
         try:
@@ -21,14 +22,14 @@ class test_Login(base_test.test):
             yield self.user_can_login, platform
 
     def user_can_login(self, platform):
-        self.driver = self.getDriver(platform)
+        self.driver = self.getDriver(platform, self.run_locally)
         test_setup = {
                      'driver': self.driver,
-                     'timeout': 30,
-                     'goto': "http://ontapstaging.herokuapp.com/"
+                     'timeout': 30
         }
 
         Login = onTap_login.onTapLogin(test_setup)
+        Login.goto("http://ontapstaging.herokuapp.com/")
         Login.login("John.Smith", "1234")
         assert_true(re.match(".*/calendar", self.driver.current_url), "page did not load")
 
@@ -43,13 +44,14 @@ class test_Login(base_test.test):
                 yield self.user_can_not_login, platform, data
 
     def user_can_not_login(self, platform, data):
-        self.driver = self.getDriver(platform)
+        self.driver = self.getDriver(platform, self.run_locally)
         test_setup = {
                      'driver': self.driver,
                      'timeout': 30,
                      'goto': "http://ontapstaging.herokuapp.com/"
         }
         Login = onTap_login.onTapLogin(test_setup)
+        Login.goto("http://ontapstaging.herokuapp.com/")
         Login.login(data['username'], data['password'])
         assert Login.is_error_message(5)
 
