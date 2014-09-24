@@ -40,3 +40,7 @@ class onTap(base_page.Page):
     def add_new_event(self):
         self.admin_drop_down().click()
         self.add_new_event_link().click()
+
+    def add_new_suggestion(self):
+        self.admin_drop_down().click()
+        self.add_new_event_link().click()
