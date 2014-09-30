@@ -16,6 +16,9 @@ class onTap(base_page.Page):
     add_new_event_loc = "//ul[@class='dropdown-menu']//a[contains(., 'Add New Event')]"
     add_new_event_by = "xpath"
 
+    add_new_suggestion_loc = "//a[contains(., 'Suggest Topics')]"
+    add_new_suggestion_by = "xpath"
+
     def admin_drop_down(self):
         return webElement(self.driver, self.admin_drop_down_by, self.admin_drop_down_loc)
 
