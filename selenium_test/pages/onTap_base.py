@@ -16,11 +16,17 @@ class onTap(base_page.Page):
     add_new_event_loc = "//ul[@class='dropdown-menu']//a[contains(., 'Add New Event')]"
     add_new_event_by = "xpath"
 
+    add_new_suggestion_loc = "//a[contains(., 'Suggest Topics')]"
+    add_new_suggestion_by = "xpath"
+
     def admin_drop_down(self):
         return webElement(self.driver, self.admin_drop_down_by, self.admin_drop_down_loc)
 
     def add_new_event_link(self):
         return webLink(self.driver, self.add_new_event_by, self.add_new_event_loc)
+
+    def add_new_suggestion_link(self):
+        return webLink(self.driver, self.add_new_suggestion_by, self.add_new_suggestion_loc)
 
     def is_error_message(self, timeout=0):
         self.driver.implicitly_wait(timeout)
@@ -42,5 +48,4 @@ class onTap(base_page.Page):
         self.add_new_event_link().click()
 
     def add_new_suggestion(self):
-        self.admin_drop_down().click()
-        self.add_new_event_link().click()
+        self.add_new_suggestion_link().click()
