@@ -5,7 +5,7 @@ from selenium_test.pages import *
 import re
 
 
-class test_Login(base_test.test):
+class test_Suggestion(base_test.test):
     _multiprocess_can_split_ = True
 
     run_locally = True
@@ -32,23 +32,23 @@ class test_Login(base_test.test):
         Login.goto("http://ontapstaging.herokuapp.com/")
         Login.login("John.Smith", "Password")
 
-        Login.add_new_event()
+        Login.add_new_suggestion()
 
-        NewEvent = onTap_new_event.onTapNewEvent(test_setup)
-        Login.login("Programming classes", "Have classes to teach the basics of programming")
-        assert_true(re.match(".*/calendar", self.driver.current_url), "page did not load")
+        NewSuggestion = onTap_new_suggestion.onTapNewSuggestion(test_setup)
+        NewSuggestion.submit_suggestion("Java Programming", "Learn about the joys and pain of programming in java")
+        assert Login.is_success_message(5)
 
-    def test_user_can_not_login(self):
+    def test_user_can_not_submit_suggestion(self):
         test_data = [
-            {'title': 'John', 'description': '1234'},
-            {'title': '', 'description': '1234'},
-            {'title': 'John.Smith', 'description': ''}
+            {'title': 'Python Programming', 'description': ''},
+            {'title': '', 'description': 'Learn to program in Python'},
+            {'title': '', 'description': ''}
         ]
         for data in test_data:
             for platform in self.envs:
-                yield self.user_can_not_login, platform, data
+                yield self.user_can_not_submit_suggestion, platform, data
 
-    def user_can_not_login(self, platform, data):
+    def user_can_not_submit_suggestion(self, platform, data):
         self.driver = self.getDriver(platform, self.run_locally)
         test_setup = {
                      'driver': self.driver,
@@ -57,7 +57,13 @@ class test_Login(base_test.test):
         }
         Login = onTap_login.onTapLogin(test_setup)
         Login.goto("http://ontapstaging.herokuapp.com/")
-        Login.login(data['username'], data['password'])
+        Login.login("John.Smith", "Password")
+        Login.add_new_suggestion()
+        NewSuggestion = onTap_new_suggestion.onTapNewSuggestion(test_setup)
+        NewSuggestion.submit_suggestion(data['title'], data['description'])
+        print 'Kevin munromunromunromunro'
+        alert = self.driver.switch_to_alert()
+        print alert.text
         assert Login.is_error_message(5)
 
 
