@@ -9,7 +9,7 @@ class test_Suggestion(base_test.test):
     _multiprocess_can_split_ = True
 
     run_locally = True
-    envs = ['chrome', 'ie', 'firefox']
+    envs = ['firefox']
 
     def tearDown(self):
         try:
@@ -61,10 +61,7 @@ class test_Suggestion(base_test.test):
         Login.add_new_suggestion()
         NewSuggestion = onTap_new_suggestion.onTapNewSuggestion(test_setup)
         NewSuggestion.submit_suggestion(data['title'], data['description'])
-        print 'Kevin munromunromunromunro'
-        alert = self.driver.switch_to_alert()
-        print alert.text
-        assert Login.is_error_message(5)
+        assert len(self.driver.find_elements_by_css_selector("input:invalid")) > 0
 
 
 

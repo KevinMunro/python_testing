@@ -25,3 +25,4 @@ class onTapNewSuggestion(onTap):
         self.title().set(title)
         self.description().set(description)
         self.submit_button().click()
+
