@@ -209,5 +209,5 @@ class test_Add_Event(base_test.test):
         NewEvent = onTap_new_event.onTapNewEvent(test_setup)
         NewEvent.fill_form(data)
         NewEvent.submit_button().click()
-
+        assert len(self.driver.find_elements_by_css_selector("input:invalid")) > 0
 
