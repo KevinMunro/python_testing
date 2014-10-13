@@ -49,3 +49,4 @@ class onTap(base_page.Page):
 
     def add_new_suggestion(self):
         self.add_new_suggestion_link().click()
+

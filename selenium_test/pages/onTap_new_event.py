@@ -1,5 +1,7 @@
 from onTap_base import onTap
 from selenium_test.base.webObjects import *
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 class onTapNewEvent(onTap):
@@ -42,6 +44,9 @@ class onTapNewEvent(onTap):
 
     event_date_label_loc = "label[for=event_event_date]"
     event_date_label_by = "css"
+
+    event_start_time_label_loc = "label[for=event_event_time]"
+    event_start_time_label_by = "css"
 
     event_start_loc = "label[for=event_event_time] ~ select"
     event_start_by = "css"
@@ -96,6 +101,9 @@ class onTapNewEvent(onTap):
     def event_date_label(self):
         return webElement(self.driver, self.event_date_label_by, self.event_date_label_loc)
 
+    def event_start_time_label(self):
+        return webElement(self.driver, self.event_start_time_label_by, self.event_start_time_label_loc)
+
     def event_start_time(self):
         return webSelect(self.driver, self.event_start_by, self.event_start_loc)
 
@@ -113,7 +121,15 @@ class onTapNewEvent(onTap):
 
     def set_event_date(self, date):
         self.event_date().set(date)
-        self.event_date_label().click()
+
+        #wait = WebDriverWait(self, 10)
+        #element = wait.until(EC.element_to_be_clickable((self.event_date_label_by, self.event_date_label_loc)))
+
+        if self.event_start_time_label().is_displayed():
+            self.event_start_time_label().click()
+        else:
+            print 'declare shens'
+
 
     def fill_form(self, data):
         for key, value in data.iteritems():
@@ -127,6 +143,8 @@ class onTapNewEvent(onTap):
                 time.sleep(0.25)
             elif value == 'click':
                 getattr(self, key)().click()
+            elif value == '':
+                print "KKKKKKKEVINEKEVINKEVINKEVIN"
             else:
                 getattr(self, key)().set(value)
 

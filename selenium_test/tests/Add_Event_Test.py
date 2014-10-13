@@ -53,7 +53,7 @@ class test_Add_Event(base_test.test):
         }
 
         Login = onTap_login.onTapLogin(test_setup)
-        Login.goto("http://ontapstaging.herokuapp.com/")
+        Login.goto("http://localhost:3000/")
         Login.login("Company.Admin", "1234")
 
         Login.add_new_event()
@@ -147,15 +147,6 @@ class test_Add_Event(base_test.test):
             ('event_style', "Webinar"),
             ('event_title', "Some Webinar"),
             ('event_description', "Some Description that is longer than the title, but not war and peace long"),
-            ('event_url', ''),
-            ('event_host', 'Google'),
-            ('set_event_date', '12/05/2014'),
-            ('event_start_time', '12:00pm'),
-            ('event_end_time', '1:00pm')
-        )),  OrderedDict((
-            ('event_style', "Webinar"),
-            ('event_title', "Some Webinar"),
-            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
             ('event_url', 'https://www.google.com'),
             ('event_host', 'Google'),
             ('set_event_date', ''),
@@ -179,15 +170,6 @@ class test_Add_Event(base_test.test):
             ('set_event_date', '12/05/2014'),
             ('event_start_time', '12:00pm'),
             ('event_end_time', '')
-        )), OrderedDict((
-            ('event_style', "Webinar"),
-            ('event_title', "Some Webinar"),
-            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
-            ('event_url', 'https://www.google.com'),
-            ('event_host', 'Google'),
-            ('set_event_date', '12/05/2014'),
-            ('event_start_time', '12:00pm'),
-            ('event_end_time', '11:00am')
         ))]
         for test_data in data:
             for platform in self.envs:
@@ -201,7 +183,7 @@ class test_Add_Event(base_test.test):
         }
 
         Login = onTap_login.onTapLogin(test_setup)
-        Login.goto("http://ontapstaging.herokuapp.com/")
+        Login.goto("http://localhost:3000/")
         Login.login("Company.Admin", "1234")
 
         Login.add_new_event()
