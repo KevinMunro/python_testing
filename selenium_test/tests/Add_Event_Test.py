@@ -60,7 +60,8 @@ class test_Add_Event(base_test.test):
 
         NewEvent = onTap_new_event.onTapNewEvent(test_setup)
         NewEvent.fill_form(data)
-        NewEvent.submit_button().click()
+        #NewEvent.submit_is_visible()
+        NewEvent.submit_button().submit()
 
         Calendar = onTap_calendar.onTapCalendar(test_setup)
         assert_true(Calendar.is_success_message(), "No Success Message Displayed")
@@ -95,33 +96,6 @@ class test_Add_Event(base_test.test):
             ('event_description', ""),
             ('add_host_button', 'click'),
             ('add_host_select', 'Matt Watson'),
-            ('set_event_date', ''),
-            ('event_start_time', '12:00pm'),
-            ('event_end_time', '1:00pm')
-        )), OrderedDict((
-            ('event_style', "Lunch And Learn"),
-            ('event_title', "Some Lunch and Learn"),
-            ('event_description', ""),
-            ('add_host_button', 'click'),
-            ('add_host_select', 'Matt Watson'),
-            ('set_event_date', '12/05/2014'),
-            ('event_start_time', ''),
-            ('event_end_time', '1:00pm')
-        )), OrderedDict((
-            ('event_style', "Lunch And Learn"),
-            ('event_title', "Some Lunch and Learn"),
-            ('event_description', ""),
-            ('add_host_button', 'click'),
-            ('add_host_select', 'Matt Watson'),
-            ('set_event_date', '12/05/2014'),
-            ('event_start_time', '12:00pm'),
-            ('event_end_time', '')
-        )), OrderedDict((
-            ('event_style', "Lunch And Learn"),
-            ('event_title', "Some Lunch and Learn"),
-            ('event_description', ""),
-            ('add_host_button', 'click'),
-            ('add_host_select', 'Matt Watson'),
             ('set_event_date', '12/05/2014'),
             ('event_start_time', '12:00pm'),
             ('event_end_time', '11:00am')
@@ -143,33 +117,6 @@ class test_Add_Event(base_test.test):
             ('set_event_date', '12/05/2014'),
             ('event_start_time', '12:00pm'),
             ('event_end_time', '1:00pm')
-        )),  OrderedDict((
-            ('event_style', "Webinar"),
-            ('event_title', "Some Webinar"),
-            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
-            ('event_url', 'https://www.google.com'),
-            ('event_host', 'Google'),
-            ('set_event_date', ''),
-            ('event_start_time', '12:00pm'),
-            ('event_end_time', '1:00pm')
-        )), OrderedDict((
-            ('event_style', "Webinar"),
-            ('event_title', "Some Webinar"),
-            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
-            ('event_url', 'https://www.google.com'),
-            ('event_host', 'Google'),
-            ('set_event_date', '12/05/2014'),
-            ('event_start_time', ''),
-            ('event_end_time', '1:00pm')
-        )),  OrderedDict((
-            ('event_style', "Webinar"),
-            ('event_title', "Some Webinar"),
-            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
-            ('event_url', 'https://www.google.com'),
-            ('event_host', 'Google'),
-            ('set_event_date', '12/05/2014'),
-            ('event_start_time', '12:00pm'),
-            ('event_end_time', '')
         ))]
         for test_data in data:
             for platform in self.envs:
@@ -190,6 +137,8 @@ class test_Add_Event(base_test.test):
 
         NewEvent = onTap_new_event.onTapNewEvent(test_setup)
         NewEvent.fill_form(data)
-        NewEvent.submit_button().click()
+        #NewEvent.submit_is_visible()
+        #self.driver.implicitly_wait(1)
+        NewEvent.submit_button().submit()
         assert len(self.driver.find_elements_by_css_selector("input:invalid")) > 0
 
