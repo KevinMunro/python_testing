@@ -9,7 +9,7 @@ class test_Suggestion(base_test.test):
     _multiprocess_can_split_ = True
 
     run_locally = True
-    envs = ['firefox']
+    envs = ['chrome', 'ie', 'firefox']
 
     def tearDown(self):
         try:

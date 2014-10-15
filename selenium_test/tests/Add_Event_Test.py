@@ -60,7 +60,6 @@ class test_Add_Event(base_test.test):
 
         NewEvent = onTap_new_event.onTapNewEvent(test_setup)
         NewEvent.fill_form(data)
-        #NewEvent.submit_is_visible()
         NewEvent.submit_button().submit()
 
         Calendar = onTap_calendar.onTapCalendar(test_setup)
@@ -72,6 +71,7 @@ class test_Add_Event(base_test.test):
         Calendar.find_event_by_title(data['event_title'], 'details')
 
     def test_admin_can_not_add_event(self):
+        #Chrome has no "blank" option when selecting time. Cases with blank time submission removed until I can find a way to submit a empty time
         data = [OrderedDict((
             ('event_style', "Lunch And Learn"),
             ('event_title', ""),
@@ -117,6 +117,24 @@ class test_Add_Event(base_test.test):
             ('set_event_date', '12/05/2014'),
             ('event_start_time', '12:00pm'),
             ('event_end_time', '1:00pm')
+        )), OrderedDict((
+            ('event_style', "Lunch And Learn"),
+            ('event_title', "Some Lunch and Learn"),
+            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
+            ('add_host_button', 'click'),
+            ('add_host_select', 'Matt Watson'),
+            ('set_event_date', ''),
+            ('event_start_time', '12:00pm'),
+            ('event_end_time', '1:00pm')
+        )),  OrderedDict((
+            ('event_style', "Webinar"),
+            ('event_title', "Some Webinar"),
+            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
+            ('event_url', 'https://www.google.com'),
+            ('event_host', 'Google'),
+            ('set_event_date', ''),
+            ('event_start_time', '12:00pm'),
+            ('event_end_time', '1:00pm')
         ))]
         for test_data in data:
             for platform in self.envs:
@@ -137,8 +155,51 @@ class test_Add_Event(base_test.test):
 
         NewEvent = onTap_new_event.onTapNewEvent(test_setup)
         NewEvent.fill_form(data)
-        #NewEvent.submit_is_visible()
-        #self.driver.implicitly_wait(1)
         NewEvent.submit_button().submit()
         assert len(self.driver.find_elements_by_css_selector("input:invalid")) > 0
+
+
+    def test_admin_can_not_add_event_server_side(self):
+        data = [OrderedDict((
+            ('event_style', "Webinar"),
+            ('event_title', "Some Webinar"),
+            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
+            ('event_url', 'https://www.google.com'),
+            ('event_host', 'Google'),
+            ('set_event_date', '12/05/2014'),
+            ('event_start_time', '12:00pm'),
+            ('event_end_time', '11:00am')
+        )),  OrderedDict((
+            ('event_style', "Webinar"),
+            ('event_title', "Some Webinar"),
+            ('event_description', "Some Description that is longer than the title, but not war and peace long"),
+            ('event_url', ''),
+            ('event_host', 'Google'),
+            ('set_event_date', '12/05/2014'),
+            ('event_start_time', '12:00pm'),
+            ('event_end_time', '1:00pm')
+        ))]
+        for test_data in data:
+            for platform in self.envs:
+                yield self.admin_can_not_add_event_server_side, platform, test_data
+
+
+    def admin_can_not_add_event_server_side(self, platform, data):
+        self.driver = self.getDriver(platform, self.run_locally)
+        test_setup = {
+            'driver': self.driver,
+            'timeout': 25
+        }
+
+        Login = onTap_login.onTapLogin(test_setup)
+        Login.goto("http://localhost:3000/")
+        Login.login("Company.Admin", "1234")
+
+        Login.add_new_event()
+
+        NewEvent = onTap_new_event.onTapNewEvent(test_setup)
+        NewEvent.fill_form(data)
+        NewEvent.submit_button().submit()
+        assert Login.is_error_message(5)
+
 
