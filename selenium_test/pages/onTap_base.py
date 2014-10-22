@@ -18,6 +18,9 @@ class onTap(base_page.Page):
 
     add_new_suggestion_loc = "//a[contains(., 'Suggest Topics')]"
     add_new_suggestion_by = "xpath"
+    
+    logout_link_loc = "//a[contains(., 'Logout')]"
+    logout_link_by = "xpath"
 
     def admin_drop_down(self):
         return webElement(self.driver, self.admin_drop_down_by, self.admin_drop_down_loc)
@@ -27,6 +30,9 @@ class onTap(base_page.Page):
 
     def add_new_suggestion_link(self):
         return webLink(self.driver, self.add_new_suggestion_by, self.add_new_suggestion_loc)
+    
+    def logout_link(self):
+        return webLink(self.driver, self.logout_link_by, self.loutout_link_loc)
 
     def is_error_message(self, timeout=0):
         self.driver.implicitly_wait(timeout)
@@ -42,6 +48,9 @@ class onTap(base_page.Page):
 
     def success_message(self):
         return self.driver.find_element_by_css_selector('div.alert.alert-success').text
+    
+    def error_message(self):
+        return self.driver.find_element_by_css_selector('div.alert.alert-danger').text
 
     def add_new_event(self):
         self.admin_drop_down().click()
@@ -49,4 +58,7 @@ class onTap(base_page.Page):
 
     def add_new_suggestion(self):
         self.add_new_suggestion_link().click()
+        
+    def logout(self):
+        self.logout_link().click()
 
